@@ -1,18 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ObjectDestroyer : MonoBehaviour
 {
     public string[] targetTags;  // Tags of objects to target
-    public float destroyTime;    // Time to destroy targeted objects
+    public static float destroyTime;    // Time to destroy targeted objects
     public float moveSpeed;      // Speed to move towards targeted objects
 
     private GameObject closestTarget;  // Closest target to move towards
     private float destroyTimer;        // Timer to destroy targeted objects
 
+    public TextMeshProUGUI ButtonText;
+    public static int changeTarget = 0;
     void Update()
     {
+
+        if (changeTarget == 0)
+        {
+            targetTags[0] = "Stone";
+            ButtonText.text = "Stone";
+        }
+        if (changeTarget == 1)
+        {
+            targetTags[0] = "Tree";
+            ButtonText.text = "Tree";
+
+        }
+        if (changeTarget == 3)
+        {
+            targetTags[0] = "Gold";
+            ButtonText.text = "Gold";
+
+        }
+
         // Find closest target
         closestTarget = FindClosestTarget();
 
@@ -29,6 +51,20 @@ public class ObjectDestroyer : MonoBehaviour
                 if (destroyTimer >= destroyTime)
                 {
                     Destroy(closestTarget);
+                    if (changeTarget == 0)
+                    {
+                        LevelManager.stone += 1;
+                    }
+                    if (changeTarget == 1)
+                    {
+                        LevelManager.tree += 1;
+
+                    }
+                    if (changeTarget == 3)
+                    {
+                        LevelManager.gold += 1;
+
+                    }
                     destroyTimer = 0;
                 }
             }
@@ -56,5 +92,14 @@ public class ObjectDestroyer : MonoBehaviour
         }
 
         return closest;
+    }
+    public void TargetNameChanger()
+    {
+        changeTarget += 1;
+
+        if (changeTarget == 4)
+        {
+            changeTarget = 0;
+        }
     }
 }

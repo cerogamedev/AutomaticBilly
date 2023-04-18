@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Target
+  - Tree
+  - Stone
+  - Gold
   layers:
   - Default
   - TransparentFX
